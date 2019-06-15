@@ -1,0 +1,23 @@
+actions:
+  - name: Check for physical hazards
+    outcomes:
+            - name: No hazards present
+              asset: http://localhost/nop.html
+              text: No hazards were seen
+              weight: 80
+              exit: false
+            - name: Hazards present
+              asset: http://localhost/nop.html
+              text: Patient is in the middle of a busy road
+              weight: 20
+              exit: false
+              whitelist:
+                      - "Call 999 and stop processing"
+
+  - name: "Call 999 and stop processing"
+    outcomes:
+            - name: "Obey"
+              asset: blah
+              text: Listen to the operator and do what they tell you to do
+              exit: true
+

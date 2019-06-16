@@ -50,6 +50,7 @@ actions:
       outcomes:
           - name: "Airway normalises"
             text: "You perform a head tilt, chin lift and the airway normalises"
+            weight: 100
     - name: "Check breathing"
       outcomes:
           - name: "Not breathing"

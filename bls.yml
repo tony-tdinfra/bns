@@ -15,10 +15,11 @@ actions:
             text: "You wait for someone who knows more to show up"
             exit: true
             weight: 100
-    - name: "Put in recovery position"
-      outcomes:
     - name: "Get defibrilator"
       outcomes:
+          - name: "Fetch defibrilator"
+            text: "You go and fetch a defibrilator"
+            weight: 100
     - name: "Check response"
       outcomes:
           - name: "Unresponsive"
@@ -33,12 +34,27 @@ actions:
       outcomes:
           - name: "Not breathing"
             text: "They aren't breathing"
+            weight: 50
+          - name: "Are breathing"
+            text: "They are breathing"
+            weight: 50
+            whitelist:
+                - "Put in recovery position"
+    - name: "Put in recovery position"
+      outcomes:
+          - name: "Put in recovery position"
+            text: "You place them into the recovery position"
             weight: 100
     - name: "Check pulse"
       outcomes:
           - name: "No pulse"
             text: "You can't feel a pulse"
             weight: 100
+          - name: "Pulse present"
+            text: "You can feel a pulse"
+            blacklist:
+              - "Do 30 chest compressions"
+              - "Continue CPR"
     - name: "Do 30 chest compressions"
       outcomes:
           - name: "Start compressions"

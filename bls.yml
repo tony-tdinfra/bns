@@ -3,7 +3,14 @@ actions:
       outcomes:
         - name: "No danger"
           text: "There are no obvious dangers"
-          weight: 100
+          asset: "https://cdn.pixabay.com/photo/2015/03/26/15/51/woman-692940_960_720.jpg"
+          weight: 50
+        - name: "Traffic present"
+          text: "They are in the middle of a busy road"
+          asset: "https://images.pexels.com/photos/1530261/pexels-photo-1530261.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+          weight: 50
+          whitelist:
+              - "Shout for help"
     - name: "Shout for help"
       outcomes:
           - name: "Help not immediately available"
@@ -17,19 +24,23 @@ actions:
             weight: 100
     - name: "Get defibrilator"
       outcomes:
-          - name: "Fetch defibrilator"
-            text: "You go and fetch a defibrilator"
+          - name: "No defibrilator"
+            text: "There is no defibrilator nearby"
             weight: 100
     - name: "Check response"
       outcomes:
           - name: "Unresponsive"
             text: "They are unresponsive"
             weight: 100
+            whitelist:
+                - "Check airway"
     - name: "Check airway"
       outcomes:
           - name: "No obstruction"
             text: "You can't see any signs of airway obstruction"
             weight: 100
+            whitelist:
+                - "Check breathing"
     - name: "Check breathing"
       outcomes:
           - name: "Not breathing"
@@ -49,22 +60,30 @@ actions:
       outcomes:
           - name: "No pulse"
             text: "You can't feel a pulse"
-            weight: 100
+            weight: 50
+            whitelist:
+                - "Start compressions"
           - name: "Pulse present"
             text: "You can feel a pulse"
+            weight: 50
             blacklist:
               - "Do 30 chest compressions"
               - "Continue CPR"
-    - name: "Do 30 chest compressions"
+    - name: "Start compressions"
       outcomes:
-          - name: "Start compressions"
+          - name: "Do 30 chest compressions"
             text: "You do 30 chest compressions"
+            asset: "https://www.healthlinkbc.ca/health-topics/zm2273"
             weight: 100
-    - name: "Do 2 rescue breaths"
+            whitelist:
+                - "Start rescue breaths"
+    - name: "Start rescue breaths"
       outcomes:
-          - name: "Start rescue breaths"
+          - name: "Do 2 rescue breaths"
             text: "You do 2 rescue breaths"
             weight: 100
+            whitelist:
+                - "Continue CPR"
     - name: "Continue CPR"
       outcomes:
           - name: "Continued CPR"

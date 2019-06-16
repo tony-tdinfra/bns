@@ -1,23 +1,98 @@
 actions:
   - name: Check for physical hazards
     outcomes:
-            - name: No hazards present
-              asset: http://localhost/nop.html
-              text: No hazards were seen
-              weight: 80
-              exit: false
-            - name: Hazards present
-              asset: http://localhost/nop.html
-              text: Patient is in the middle of a busy road
-              weight: 20
-              exit: false
-              whitelist:
-                      - "Call 999 and stop processing"
+      - name: No hazards present
+        asset: http://localhost/nop.html
+        text: No hazards were seen
+        weight: 80
+        exit: false
+      - name: Hazards present
+        asset: http://localhost/nop.html
+        text: Patient is in the middle of a busy road
+        weight: 20
+        exit: false
+        whitelist:
+          - "Call 999 and stop processing"
 
   - name: "Call 999 and stop processing"
     outcomes:
-            - name: "Obey"
-              asset: blah
-              text: Listen to the operator and do what they tell you to do
-              exit: true
+      - name: "Obey"
+        asset: blah
+        text: Listen to the operator and do what they tell you to do
+        exit: true
+        whitelist:
+          - "Check for response"
+  - name: "Check for response"
+    outcomes:
+      - name: Unresponsive
+        asset: blah
+        text: They are completely unresponsive
+        weight: 50
+        exit: false
+        whitelist:
+          - "Check airway"
+      - name: Responsive to voice
+        asset: blah
+        text: They respond when you ask their name
+        weight: 50
+        exit: false
+        whitelist:
+          - "Check airway"
+  - name: "Check airway"
+    outcomes:
+      - name: "Airway intact"
+        asset: blah
+        text: No signs of airway obstruction or compromise
+        weight: 50
+        exit: false
+        whitelist:
+            - "Check breathing"
+  - name: "Check breathing"
+    outcomes:
+        - name: "Not breathing"
+          asset: blah
+          text: They do not seem to be breathing
+          weight: 50
+          exit: false
+          whitelist:
+              - "Begin rescue breath"
+        - name: "Breathing"
+          asset: blah
+          text: They are breathing adequately
+          weight: 50
+          exit: false
+          whitelist:
+              - "Check pulse"
+  - name: "Begin rescue breath"
+    outcomes:
+        - name: "Started rescue breaths"
+          asset: blah
+          text: You successfully initiate rescue breaths
+          weight: 100
+          exit: false
+          whitelist:
+              - "Check pulse"
+  - name: "Check pulse"
+    outcomes:
+        - name: "Absent pulse"
+          asset: blah
+          text: You cannot feel a pulse
+          weight: 50
+          exit: false
+          whitelist:
+              - "Start compressions"
+        - name: "Pulse present"
+          asset: blah
+          text: You can feel a pulse
+          weight: 50
+          exit: false
+          whitelist:
+              - "Call for help"
+  - name: "Start compressions"
+    outcomes:
+        - name: "Started compressions"
+          asset: blah
+          text: You have start performing CPR at a rate of 100bpm
+          weight: 100
+          exit: true
 

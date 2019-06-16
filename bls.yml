@@ -1,0 +1,57 @@
+actions:
+    - name: "Check for danger"
+      outcomes:
+        - name: "No danger"
+          text: "There are no obvious dangers"
+          weight: 100
+    - name: "Shout for help"
+      outcomes:
+          - name: "Help not immediately available"
+            text: "Expert help is over 10 minutes away"
+            weight: 100
+    - name: "Wait for expert help"
+      outcomes:
+          - name: "Waiting"
+            text: "You wait for someone who knows more to show up"
+            exit: true
+            weight: 100
+    - name: "Put in recovery position"
+      outcomes:
+    - name: "Get defibrilator"
+      outcomes:
+    - name: "Check response"
+      outcomes:
+          - name: "Unresponsive"
+            text: "They are unresponsive"
+            weight: 100
+    - name: "Check airway"
+      outcomes:
+          - name: "No obstruction"
+            text: "You can't see any signs of airway obstruction"
+            weight: 100
+    - name: "Check breathing"
+      outcomes:
+          - name: "Not breathing"
+            text: "They aren't breathing"
+            weight: 100
+    - name: "Check pulse"
+      outcomes:
+          - name: "No pulse"
+            text: "You can't feel a pulse"
+            weight: 100
+    - name: "Do 30 chest compressions"
+      outcomes:
+          - name: "Start compressions"
+            text: "You do 30 chest compressions"
+            weight: 100
+    - name: "Do 2 rescue breaths"
+      outcomes:
+          - name: "Start rescue breaths"
+            text: "You do 2 rescue breaths"
+            weight: 100
+    - name: "Continue CPR"
+      outcomes:
+          - name: "Continued CPR"
+            text: "You continue CPR till help arrives"
+            exit: true
+            weight: 100

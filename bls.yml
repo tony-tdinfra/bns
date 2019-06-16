@@ -1,12 +1,22 @@
 actions:
     - name: "Check for danger"
+      asset: "https://c1.staticflickr.com/5/4290/35559845012_d31711824f_b.jpg"
       outcomes:
         - name: "No danger"
           text: "There are no obvious dangers"
-          weight: 100
+          asset: "https://cdn.pixabay.com/photo/2015/03/26/15/51/woman-692940_960_720.jpg"
+          weight: 50
+        - name: "Traffic present"
+          text: "They are in the middle of a busy road"
+          asset: "https://images.pexels.com/photos/1530261/pexels-photo-1530261.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+          weight: 50
+          whitelist:
+              - "Shout for help"
     - name: "Shout for help"
+      asset: "https://previews.123rf.com/images/vectorshots/vectorshots1304/vectorshots130400237/19419707-help-comic-shout-expression-text.jpg"
       outcomes:
           - name: "Help not immediately available"
+            asset: "https://media-cdn.tripadvisor.com/media/photo-s/0b/95/1a/94/remote-location.jpg"
             text: "Expert help is over 10 minutes away"
             weight: 100
     - name: "Wait for expert help"
@@ -16,20 +26,30 @@ actions:
             exit: true
             weight: 100
     - name: "Get defibrilator"
+      asset: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Automated_External_Defibrillator_%28symbol%29.svg/600px-Automated_External_Defibrillator_%28symbol%29.svg.png"
       outcomes:
-          - name: "Fetch defibrilator"
-            text: "You go and fetch a defibrilator"
+          - name: "No defibrilator"
+            text: "There is no defibrilator nearby"
             weight: 100
     - name: "Check response"
       outcomes:
           - name: "Unresponsive"
             text: "They are unresponsive"
             weight: 100
+            whitelist:
+                - "Check airway"
     - name: "Check airway"
       outcomes:
           - name: "No obstruction"
             text: "You can't see any signs of airway obstruction"
             weight: 100
+            whitelist:
+                - "Check breathing"
+    - name: "Head tilt"
+      asset: "https://www.firstaidforfree.com/wp-content/uploads/2015/04/Head-tilt-chin-lift.jpg"
+      outcomes:
+          - name: "Airway normalises"
+            text: "You perform a head tilt, chin lift and the airway normalises"
     - name: "Check breathing"
       outcomes:
           - name: "Not breathing"
@@ -41,30 +61,40 @@ actions:
             whitelist:
                 - "Put in recovery position"
     - name: "Put in recovery position"
+      asset: "https://upload.wikimedia.org/wikipedia/commons/3/31/Recovery_position.svg"
       outcomes:
           - name: "Put in recovery position"
             text: "You place them into the recovery position"
             weight: 100
     - name: "Check pulse"
+      asset: "https://image.shutterstock.com/image-vector/checking-your-heart-rate-manually-260nw-1062950588.jpg"
       outcomes:
           - name: "No pulse"
             text: "You can't feel a pulse"
-            weight: 100
+            weight: 50
+            whitelist:
+                - "Start compressions"
           - name: "Pulse present"
             text: "You can feel a pulse"
+            weight: 50
             blacklist:
               - "Do 30 chest compressions"
               - "Continue CPR"
-    - name: "Do 30 chest compressions"
+    - name: "Start compressions"
       outcomes:
-          - name: "Start compressions"
+          - name: "Do 30 chest compressions"
             text: "You do 30 chest compressions"
+            asset: "https://www.healthlinkbc.ca/health-topics/zm2273"
             weight: 100
-    - name: "Do 2 rescue breaths"
+            whitelist:
+                - "Start rescue breaths"
+    - name: "Start rescue breaths"
       outcomes:
-          - name: "Start rescue breaths"
+          - name: "Do 2 rescue breaths"
             text: "You do 2 rescue breaths"
             weight: 100
+            whitelist:
+                - "Continue CPR"
     - name: "Continue CPR"
       outcomes:
           - name: "Continued CPR"
